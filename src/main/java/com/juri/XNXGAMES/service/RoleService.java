@@ -1,13 +1,14 @@
 package com.juri.XNXGAMES.service;
 
-import java.util.List;
-
 import org.keycloak.representations.idm.RoleRepresentation;
+
+import java.util.List;
 
 public interface RoleService {
 
-	public void create(String roleName);
-	public List<RoleRepresentation> findAll();
-	public RoleRepresentation findByName(String roleName);
+	void create(String roleName);
+	List<RoleRepresentation> findAll();
+	RoleRepresentation findByName(String roleName);
+	void delete(String roleName);
 	
 }
