@@ -12,8 +12,13 @@ public class KeycloakClientConfig {
 
 	@Value("${keycloak.auth-server-url}")
 	private String authUrl;
+	@Value("${keycloak.clientId}")
+	private String clientId;
+	@Value("${keycloak.credentials.secret}")
+	private String clientSecret;
+
 	public static String realm;
-	
+
 	@Value("${keycloak.realm}")
 	public void setRealm(String value) {
 		realm = value;
@@ -24,10 +29,9 @@ public class KeycloakClientConfig {
 		return KeycloakBuilder.builder()
 				.serverUrl(authUrl)
 				.realm(realm)
-				.grantType(OAuth2Constants.PASSWORD)
-				.username("admin")
-				.password("admin")
-				.clientId("admin-cli")
+				.grantType(OAuth2Constants.CLIENT_CREDENTIALS)
+				.clientId(clientId)
+				.clientSecret(clientSecret)
 				.build();
 	}
 	
