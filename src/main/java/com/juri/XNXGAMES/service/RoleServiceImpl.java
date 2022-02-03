@@ -1,8 +1,7 @@
 package com.juri.XNXGAMES.service;
 
-import com.juri.XNXGAMES.config.KeycloakClientConfig;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.stereotype.Service;
 
@@ -12,31 +11,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
 
-	private final Keycloak keycloak;
+	private final RealmResource realmResource;
 
 	@Override
 	public void create(String roleName) {
 		RoleRepresentation role = new RoleRepresentation();
 		role.setName(roleName);
-		
-		keycloak
-				.realm(KeycloakClientConfig.realm)
+
+		realmResource
 				.roles()
 				.create(role);
 	}
 
 	@Override
 	public List<RoleRepresentation> findAll() {
-		return keycloak
-					.realm(KeycloakClientConfig.realm)
+		return realmResource
 					.roles()
 					.list();
 	}
 
 	@Override
 	public RoleRepresentation findByName(String roleName) {
-		return keycloak
-					.realm(KeycloakClientConfig.realm)
+		return realmResource
 					.roles()
 					.get(roleName)
 					.toRepresentation();
@@ -44,8 +40,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void delete(String roleName) {
-		keycloak
-				.realm(KeycloakClientConfig.realm)
+		realmResource
 				.roles()
 				.deleteRole(roleName);
 	}
