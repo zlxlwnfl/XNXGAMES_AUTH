@@ -1,17 +1,20 @@
 package com.juri.XNXGAMES.service;
 
-import java.util.List;
+import com.juri.XNXGAMES.dto.UserInfoDTO;
+import org.keycloak.representations.idm.UserRepresentation;
 
 import javax.ws.rs.core.Response;
-import org.keycloak.representations.idm.UserRepresentation;
-import org.keycloak.representations.idm.RoleRepresentation;
+import java.util.List;
 
 public interface UserService {
 
 	Response create(String userName, String password);
 	List<UserRepresentation> findAll();
-	UserRepresentation findById(String id);
-	UserRepresentation findByUsername(String userName);
-	RoleRepresentation assignRole(String userId, RoleRepresentation roleRepresentation);
-	
+	UserRepresentation findById(String userId);
+	void assignRole(String userId, String roleName);
+	void update(String userId, UserInfoDTO.Request request);
+	void delete(String userId);
+	void logout(String userId);
+	void resetPassword(String userId, String password);
+
 }
